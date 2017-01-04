@@ -1,96 +1,10 @@
 <html>
 	<head>
 		<title>Code Contas</title>
-		<style type="text/css">
-			.pago {
-				color: green;
-			}
-			.nao-pago {
-				color: red;
-			}
-
-			.red {
-				color: red;
-			}
-
-			.green {
-				color: green;
-			}
-
-			.gray {
-				color: gray;
-			}
-		</style>
 	</head>
-	<body id="app">
-	<h1>{{ title }}</h1>
-	<h3 :class="{'gray': status === false, 'green': status === 0, 'red' : status > 0}">
-		{{ status | statusGeneral }}
-	</h3>
-
-	<nav>
-		<ul>
-			<li v-for="menu in menus">
-				<a @click.prevent="showView(menu.id)" style="cursor:pointer">{{ menu.name }}</a>
-			</li>
-		</ul>
-	</nav>
-	
-	<div v-if="activedView == 0">
-		<table border="1" cellpadding="10">
-			<thead>
-				<tr>
-					<td></td>
-					<td>Vencimento</td>
-					<td>Nome</td>
-					<td>Valor</td>
-					<td>Paga?</td>
-					<td>Ações</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="(index, bill) in bills">
-					<td>{{ index + 1 }}</td>
-					<td>{{ bill.date_due }}</td>
-					<td>{{ bill.name }}</td>
-					<td>{{ bill.value | currency 'R$ ' 2}}</td>
-					<td :class="{'pago': bill.done, 'nao-pago': !bill.done}">
-						{{ bill.done | doneLabel }}
-					</td>
-					<td style="cursor:pointer">
-						<a @click.prevent="loadBill(bill)">Editar</a> |
-						<a @click.prevent="removeBill(bill)">Remover</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
-	<div v-else>
-		<form name="form" @submit.prevent="submit">
-			<label>Vencimento:</label>
-			<input type="text" v-model="bill.date_due">
-			<br><br>
-
-			<label>Nome:</label>
-			<select v-model="bill.name">
-				<option v-for="name in names" :value=" name">{{ name }}</option>
-			</select>
-			<br><br>
-
-			<label>Valor:</label>
-			<input type="text" v-model="bill.value">
-			<br><br>
-			
-			<label>Pago?</label>
-			<input type="checkbox" v-model="bill.done">
-			<br><br>
-
-			<input type="submit" value="Enviar">
-		</form>
-	</div>
-
-	<script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>	
-	<script type="text/javascript" src="app.js"></script>
+	<body id="app">			
+		<app-component></app-component>	
+		<script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>	
+		<script type="text/javascript" src="app.js"></script>
 	</body>
 </html>
